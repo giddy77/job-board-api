@@ -31,12 +31,12 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "user@example.com"
+                                        "example": "user@pesakit.com"
                                     },
                                     "password": {
                                         "type": "string",
                                         "minLength": 4,
-                                        "example": "password123"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"
@@ -160,7 +160,7 @@
                                     "password": {
                                         "type": "string",
                                         "minLength": 4,
-                                        "example": "password123"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"

@@ -42,8 +42,8 @@ class LoginController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
-     *             @OA\Property(property="password", type="string", minLength=4, example="password123")
+     *             @OA\Property(property="email", type="string", format="email", example="user@pesakit.com"),
+     *             @OA\Property(property="password", type="string", minLength=4, example="password")
      *         )
      *     ),
      *     @OA\Response(
@@ -120,7 +120,7 @@ class LoginController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="email", type="string", format="email", example="info@pesakit.com"),
-     *             @OA\Property(property="password", type="string", minLength=4, example="password123")
+     *             @OA\Property(property="password", type="string", minLength=4, example="password")
      *         )
      *     ),
      *     @OA\Response(

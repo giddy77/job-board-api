@@ -15,7 +15,7 @@ class CompanySeeder extends Seeder
     public function run(): void
     {
         $companies = [
-            ['name' => 'Pesa Kit', 'email' => 'hr@pesakit.com', 'location' => 'Nairobi'],
+            ['name' => 'Pesa Kit', 'email' => 'info@pesakit.com', 'location' => 'Nairobi'],
             ['name' => 'JuaKali Hub', 'email' => 'jobs@juakali.co.ke', 'location' => 'Mombasa'],
             ['name' => 'Twende Africa', 'email' => 'careers@twende.africa', 'location' => 'Kisumu'],
             ['name' => 'Zuri Digital', 'email' => 'hello@zuridigital.com', 'location' => 'Nairobi'],
