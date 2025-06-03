@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('location');
             $table->decimal('salary_min', 10, 2);
             $table->decimal('salary_max', 10, 2);
-            $table->enum('job_type', ['full-time', 'part-time', 'contract', 'remote']);
+            $table->enum('job_type', ['full-time', 'hybrid','part-time', 'contract', 'remote']);
             $table->timestamps();
         });
     }
