@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('location')->nullable(); //later on for geolocation
             $table->string('phone')->nullable();
-            $table->string('website_url')->nullable();
+            $table->string('company_website')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -10,4 +10,14 @@ use Laravel\Sanctum\HasApiTokens;
 class Company extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'address',
+        'phone',
+        'password',
+        'description',
+        'company_website',
+    ];
 }
