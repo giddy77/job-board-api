@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('job_posting_id')->constrained()->onDelete('cascade');
+            $table->text('cover_letter')->nullable(); // optional cover letter
+            $table->string('resume_path'); // path to the resume file
+            $table->enum('status', ['applied', 'interviewing', 'offered', 'rejected'])->default('applied'); // application status
+            // timestamps for when the application was made
             $table->timestamp('applied_at');
             $table->timestamps();
 

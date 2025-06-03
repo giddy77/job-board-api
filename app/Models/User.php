@@ -45,4 +45,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * applications of the user
+     */
+    public function applications()
+    {
+        return $this->hasMany(JobApplication::class);
+    }
+
+    public function appliedJobs()
+    {
+        return $this->belongsToMany(JobPosting::class, 'job_applications')
+            ->withTimestamps()
+            ->withPivot('status', 'cover_letter', 'applied_at') // add your actual fields
+            ->using(JobApplication::class);
+    }
 }
