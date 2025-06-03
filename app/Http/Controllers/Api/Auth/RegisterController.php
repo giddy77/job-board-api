@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\CompanyRegisterRequest;
 use App\Http\Requests\Auth\UserRegisterRequest;
+use App\Http\Resources\CompanyResource;
+use App\Http\Resources\UserResource;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,7 +86,7 @@ class RegisterController extends Controller
         // Return a response
         return response()->json([
             'message' => 'User registered successfully',
-            'user' => $user,
+            'user' => new UserResource($user),
             'token' => $user->createToken('auth_token')->plainTextToken,
            'expiration' => now()->addMinutes((int) config('sanctum.expiration', 10)), //defaults to 10 minutes
         ], 201);
@@ -169,12 +171,9 @@ class RegisterController extends Controller
 
             return response()->json([
                 'message' => 'Company registration successful.',
-                'company' => [
-                    'name' => $company->name,
-                    'email' => $company->email,
-                    'company_website' => $company->company_website,
-                    'company_description' => $company->company_description,
-                ],
+               'company' => new CompanyResource($company),
+                'token' => $company->createToken('auth_token')->plainTextToken,
+                'expiration' => now()->addMinutes((int) config('sanctum.expiration', 10)), //defaults to 10 minutes
             ], 201);
 
         } catch (Throwable $e) {

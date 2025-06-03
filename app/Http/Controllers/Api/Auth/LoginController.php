@@ -80,6 +80,7 @@ class LoginController extends Controller
 
         if (auth()->attempt($credentials)) {
             $user = auth()->user();
+
             $token = $user->createToken('auth_token')->plainTextToken;
 
 
@@ -160,6 +161,8 @@ class LoginController extends Controller
 
             if (auth()->guard('company')->attempt($credentials)) {
                 $company = auth()->guard('company')->user();
+                 // Delete old tokens (optional - for security)
+                $company->tokens()->delete();
                 $token = $company->createToken('auth_token')->plainTextToken;
 
                 //Log the successful login attempt for company tracking

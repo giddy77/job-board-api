@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('resume_path'); // path to the resume file
             $table->enum('status', ['applied', 'interviewing', 'offered', 'rejected'])->default('applied'); // application status
             $table->string('resume')->nullable(); // optional resume field for additional info
-            $table->string('cover_letter')->nullable(); // optional cover letter field for additional info
             // timestamps for when the application was made
             $table->timestamp('applied_at');
             $table->timestamps();

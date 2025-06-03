@@ -18,6 +18,12 @@ class JobPosting extends Model
         'benefits',
     ];
 
+    protected $casts = [
+        'requirements' => 'array',
+        'salary_min' => 'decimal:2',
+        'salary_max' => 'decimal:2',
+    ];
+
     public function company()
     {
         return $this->belongsTo(Company::class);
