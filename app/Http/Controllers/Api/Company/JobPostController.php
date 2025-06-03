@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Log;
 
 class JobPostController extends Controller
 {
-    // SOLUTION 1: Remove the constructor and handle auth in routes
-    // Remove the __construct method entirely and add middleware to routes
 
     /**
      * @OA\Get(
@@ -179,10 +177,8 @@ class JobPostController extends Controller
             'deadline' => 'nullable|date|after:today',
         ]);
 
-        Log::info('Creating job posting with data:', $request->all());
-$jobPosting = $request->user()->jobPostings()->create($request->all());
-Log::info('Created job posting ID: ' . optional($jobPosting)->id);
-        // $jobPosting = $request->user()->jobPostings()->create($request->all());
+        $jobPosting = $request->user()->jobPostings()->create($request->all());
+
 
         return response()->json([
             'message' => 'Job posting created successfully',
@@ -204,6 +200,68 @@ Log::info('Created job posting ID: ' . optional($jobPosting)->id);
             'data' => $jobPosting->load('company:id,name')
         ]);
     }
+
+    /**
+ * @OA\Put(
+ *     path="/api/v1/company/job-postings/{id}",
+ *     security={{"bearerAuth":{}}},
+ *     summary="Update an existing job posting",
+ *     tags={"Jobs"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the job posting",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"title", "description", "location", "type", "salary_min", "salary_max", "requirements", "deadline"},
+ *             @OA\Property(property="title", type="string", example="Backend Engineer"),
+ *             @OA\Property(property="description", type="string", example="Updated description for Backend Engineer"),
+ *             @OA\Property(property="location", type="string", example="Nairobi"),
+ *             @OA\Property(property="type", type="string", example="full-time"),
+ *             @OA\Property(property="salary_min", type="number", format="float", example=350000),
+ *             @OA\Property(property="salary_max", type="number", format="float", example=450000),
+ *             @OA\Property(
+ *                 property="requirements",
+ *                 type="array",
+ *                 @OA\Items(type="string"),
+ *                 example={"Laravel", "PHP", "PostgreSQL", "REST APIs"}
+ *             ),
+ *             @OA\Property(property="deadline", type="string", format="date", example="2025-09-01")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Job updated successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Job updated successfully"),
+ *             @OA\Property(property="job", type="object",
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="title", type="string", example="Backend Engineer"),
+ *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-04T12:00:00.000000Z")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Job not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Job not found")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation failed",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+ *             @OA\Property(property="errors", type="object", example={"title": {"The title field is required."}})
+ *         )
+ *     )
+ * )
+ */
 
     public function update(Request $request, JobPosting $jobPosting)
     {
@@ -234,6 +292,36 @@ Log::info('Created job posting ID: ' . optional($jobPosting)->id);
             'data' => $jobPosting->load('company:id,name')
         ]);
     }
+
+    /**
+ * @OA\Delete(
+ *     path="/api/v1/company/job-postings/{id}",
+ *     security={{"bearerAuth":{}}},
+ *     summary="Delete a job posting",
+ *     tags={"Jobs"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the job posting",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Job deleted successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Job deleted successfully")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Job not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Job not found")
+ *         )
+ *     )
+ * )
+ */
 
     public function destroy(Request $request, JobPosting $jobPosting)
     {
