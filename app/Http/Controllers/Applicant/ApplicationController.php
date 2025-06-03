@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Applicant;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApplicationResource;
 use App\Models\JobApplication;
+use App\Models\JobPosting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -80,20 +82,81 @@ class ApplicationController extends Controller
         // return new ApplicationResource($application);
     }
 
+    /**
+ * @OA\Post(
+ *     path="/api/v1/user/job-applications",
+ *     summary="Submit a job application",
+ *     tags={"Applicant"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"job_posting_id", "cover_letter"},
+ *             @OA\Property(property="job_posting_id", type="integer", example=1),
+ *             @OA\Property(property="cover_letter", type="string", example="I am passionate about backend development and believe I am a perfect fit for this role.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Job application submitted successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Job application submitted successfully"),
+ *             @OA\Property(property="application", type="object",
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="job_posting_id", type="integer", example=1),
+ *                 @OA\Property(property="cover_letter", type="string", example="I am passionate about backend development and believe I am a perfect fit for this role."),
+ *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-04T12:45:00.000000Z"),
+ *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-04T12:45:00.000000Z")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Job posting not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Job posting not found")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+ *             @OA\Property(property="errors", type="object", example={
+ *                 "job_posting_id": {"The job posting id field is required."},
+ *                 "cover_letter": {"The cover letter field is required."}
+ *             })
+ *         )
+ *     )
+ * )
+ */
+
     public function store(Request $request)
     {
-        // Logic to handle the store request for creating a new application
-        // This could involve validating the request data and saving a new application.
+        $validated = $request->validate([
+            'job_posting_id' => 'required|exists:job_postings,id',
+            'cover_letter' => 'required|string',
+        ]);
 
-        // Example:
-        // $validatedData = $request->validate([
-        //     'job_id' => 'required|exists:jobs,id',
-        //     'cover_letter' => 'required|string|max:1000',
-        // ]);
-        // $application = Application::create(array_merge($validatedData, ['user_id' => auth()->id()]));
-        // return new ApplicationResource($application);
+        $jobPosting = JobPosting::find($validated['job_posting_id']);
+        if (!$jobPosting) {
+            return response()->json([
+                'message' => 'Job posting not found'
+            ], 404);
+        }
+
+        $application = JobApplication::create([
+            'user_id' => Auth::id(),
+            'job_posting_id' => $validated['job_posting_id'],
+            'resume_path' => $validated['cover_letter'],
+            'applied_at' => now(),
+        ]);
+
+        return response()->json([
+            'message' => 'Job application submitted successfully',
+            'application' => new ApplicationResource($application),
+        ], 201);
     }
-
     public function destroy(Request $request, $id)
     {
         // Logic to handle the destroy request for deleting an application

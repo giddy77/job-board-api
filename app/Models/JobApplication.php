@@ -10,8 +10,9 @@ class JobApplication extends Model
         'job_posting_id',
         'user_id',
         'resume',
-        'cover_letter',
+        'resume_path',
         'status',
+        'applied_at'
     ];
 
     public function jobPosting()

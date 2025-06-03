@@ -18,7 +18,6 @@ class ApplicationResource extends JsonResource
             'id'          => $this->id,
             'job'         => new JobListResource($this->whenLoaded('job')),
             'user_id'     => $this->user_id,
-            'cover_letter'=> $this->cover_letter,
             'status'      => $this->status,
             'created_at'  => $this->created_at?->toIso8601String(),
         ];
