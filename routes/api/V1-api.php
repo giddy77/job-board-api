@@ -3,11 +3,12 @@
 use App\Http\Controllers\Api\Company\JobPostController;
 use App\Http\Controllers\Applicant\ApplicationController;
 use App\Http\Controllers\Applicant\JobListController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 
-Route::prefix('auth')->group(function () {
+Route::prefix('auth')->middleware('throttle:10,1')->group(function () {
     Route::prefix('user')->group(function () {
         Route::post('register', [RegisterController::class, 'registerUser']);
         Route::post('login', [LoginController::class, 'loginUser']);
@@ -22,7 +23,7 @@ Route::prefix('auth')->group(function () {
 
 //protected routes
 
-Route::middleware(['auth:sanctum'])->group(function() {
+Route::middleware(['auth:sanctum'])->middleware('throttle:10,1')->group(function() {
 
     //company job postings
     Route::prefix('company')->group(function () {
