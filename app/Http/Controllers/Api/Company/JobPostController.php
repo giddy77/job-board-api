@@ -15,7 +15,7 @@ class JobPostController extends Controller
      *     path="/api/v1/company/job-postings",
      * security={{"bearerAuth":{}}},
      *     summary="Get paginated job postings for a company",
-     *     tags={"Jobs"},
+     *     tags={"Company"},
      *     @OA\Response(
      *         response=200,
      *         description="Job postings retrieved successfully",
@@ -102,7 +102,7 @@ class JobPostController extends Controller
      *     path="/api/v1/company/job-postings",
      *      security={{"bearerAuth":{}}},
      *     summary="Create a new job posting",
-     *     tags={"Jobs"},
+     *     tags={"Company"},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -206,7 +206,7 @@ class JobPostController extends Controller
  *     path="/api/v1/company/job-postings/{id}",
  *     security={{"bearerAuth":{}}},
  *     summary="Update an existing job posting",
- *     tags={"Jobs"},
+ *     tags={"Company"},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -298,7 +298,7 @@ class JobPostController extends Controller
  *     path="/api/v1/company/job-postings/{id}",
  *     security={{"bearerAuth":{}}},
  *     summary="Delete a job posting",
- *     tags={"Jobs"},
+ *     tags={"Company"},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",

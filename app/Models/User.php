@@ -47,6 +47,8 @@ class User extends Authenticatable
         ];
     }
 
+
+
     /**
      * applications of the user
      */
