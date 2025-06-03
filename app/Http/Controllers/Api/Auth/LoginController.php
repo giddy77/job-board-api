@@ -15,7 +15,7 @@ use Log;
  *     title="Job Board API",
  *     description="This is the Job Board API documentation.",
  *     @OA\Contact(
- *         email="support@example.com"
+ *         email="giddysipoi@gnail.com"
  *     )
  *
  * )
