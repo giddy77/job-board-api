@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Applicant;
+namespace App\Http\Controllers\Api\Applicant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JobListResource;

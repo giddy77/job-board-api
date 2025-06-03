@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Applicant;
+namespace App\Http\Controllers\Api\Applicant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApplicationResource;
@@ -84,7 +84,7 @@ class ApplicationController extends Controller
 
     /**
  * @OA\Post(
- *     path="/api/v1/user/job-applications",
+ *     path="/api/v1/user/job-application",
  *     summary="Submit a job application",
  *     tags={"Applicant"},
  *     security={{"bearerAuth":{}}},

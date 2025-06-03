@@ -15,6 +15,370 @@
         }
     ],
     "paths": {
+        "/api/v1/user/job-applications": {
+            "get": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Get all job applications",
+                "operationId": "72abc7af1a53e3581cc2f4773677c2f8",
+                "responses": {
+                    "200": {
+                        "description": "Job applications retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job applications retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Backend Engineer"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "Senior Backend Engineer with Laravel and PHP experience"
+                                                            },
+                                                            "location": {
+                                                                "type": "string",
+                                                                "example": "Nairobi"
+                                                            },
+                                                            "job_type": {
+                                                                "type": "string",
+                                                                "example": "full-time"
+                                                            },
+                                                            "salary_min": {
+                                                                "type": "number",
+                                                                "example": 300000
+                                                            },
+                                                            "salary_max": {
+                                                                "type": "number",
+                                                                "example": 400000
+                                                            },
+                                                            "requirements": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "string",
+                                                                    "example": "Laravel"
+                                                                }
+                                                            },
+                                                            "benefits": {
+                                                                "type": "string",
+                                                                "nullable": true
+                                                            },
+                                                            "deadline": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2025-08-01"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-06-03T19:23:53.000000Z"
+                                                            },
+                                                            "company": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Pesa Kittyy"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/job-application": {
+            "post": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Submit a job application",
+                "operationId": "33db95fe1e510cee0b3b8797b8fc52f9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "job_posting_id",
+                                    "cover_letter"
+                                ],
+                                "properties": {
+                                    "job_posting_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cover_letter": {
+                                        "type": "string",
+                                        "example": "I am passionate about backend development and believe I am a perfect fit for this role."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Job application submitted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job application submitted successfully"
+                                        },
+                                        "application": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "job_posting_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "cover_letter": {
+                                                    "type": "string",
+                                                    "example": "I am passionate about backend development and believe I am a perfect fit for this role."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-04T12:45:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-04T12:45:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Job posting not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job posting not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "job_posting_id": [
+                                                    "The job posting id field is required."
+                                                ],
+                                                "cover_letter": [
+                                                    "The cover letter field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/job-listings": {
+            "get": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Get all job postings",
+                "operationId": "ce45b23738d8bd224ae4aecfe4d1ce80",
+                "responses": {
+                    "200": {
+                        "description": "Job postings retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job postings retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Backend Engineer"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "Senior Backend Engineer with Laravel and PHP experience"
+                                                            },
+                                                            "location": {
+                                                                "type": "string",
+                                                                "example": "Nairobi"
+                                                            },
+                                                            "job_type": {
+                                                                "type": "string",
+                                                                "example": "full-time"
+                                                            },
+                                                            "salary_min": {
+                                                                "type": "number",
+                                                                "example": 300000
+                                                            },
+                                                            "salary_max": {
+                                                                "type": "number",
+                                                                "example": 400000
+                                                            },
+                                                            "requirements": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "string",
+                                                                    "example": "Laravel"
+                                                                }
+                                                            },
+                                                            "benefits": {
+                                                                "type": "string",
+                                                                "nullable": true
+                                                            },
+                                                            "deadline": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2025-08-01"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-06-03T19:23:53.000000Z"
+                                                            },
+                                                            "company": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Pesa Kittyy"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/auth/user/login": {
             "post": {
                 "tags": [
@@ -1106,368 +1470,6 @@
                     }
                 ]
             }
-        },
-        "/api/v1/user/job-applications": {
-            "get": {
-                "tags": [
-                    "Applicant"
-                ],
-                "summary": "Get all job applications",
-                "operationId": "596cad71e30f9ff656f5a4cf7f661656",
-                "responses": {
-                    "200": {
-                        "description": "Job applications retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Job applications retrieved successfully"
-                                        },
-                                        "data": {
-                                            "properties": {
-                                                "current_page": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "data": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "properties": {
-                                                            "id": {
-                                                                "type": "integer",
-                                                                "example": 1
-                                                            },
-                                                            "title": {
-                                                                "type": "string",
-                                                                "example": "Backend Engineer"
-                                                            },
-                                                            "description": {
-                                                                "type": "string",
-                                                                "example": "Senior Backend Engineer with Laravel and PHP experience"
-                                                            },
-                                                            "location": {
-                                                                "type": "string",
-                                                                "example": "Nairobi"
-                                                            },
-                                                            "job_type": {
-                                                                "type": "string",
-                                                                "example": "full-time"
-                                                            },
-                                                            "salary_min": {
-                                                                "type": "number",
-                                                                "example": 300000
-                                                            },
-                                                            "salary_max": {
-                                                                "type": "number",
-                                                                "example": 400000
-                                                            },
-                                                            "requirements": {
-                                                                "type": "array",
-                                                                "items": {
-                                                                    "type": "string",
-                                                                    "example": "Laravel"
-                                                                }
-                                                            },
-                                                            "benefits": {
-                                                                "type": "string",
-                                                                "nullable": true
-                                                            },
-                                                            "deadline": {
-                                                                "type": "string",
-                                                                "format": "date",
-                                                                "example": "2025-08-01"
-                                                            },
-                                                            "created_at": {
-                                                                "type": "string",
-                                                                "format": "date-time",
-                                                                "example": "2025-06-03T19:23:53.000000Z"
-                                                            },
-                                                            "company": {
-                                                                "properties": {
-                                                                    "id": {
-                                                                        "type": "integer",
-                                                                        "example": 1
-                                                                    },
-                                                                    "name": {
-                                                                        "type": "string",
-                                                                        "example": "Pesa Kittyy"
-                                                                    }
-                                                                },
-                                                                "type": "object"
-                                                            }
-                                                        },
-                                                        "type": "object"
-                                                    }
-                                                },
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "per_page": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Applicant"
-                ],
-                "summary": "Submit a job application",
-                "operationId": "3a1d95d13ddc9658884125f1625c6729",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "job_posting_id",
-                                    "cover_letter"
-                                ],
-                                "properties": {
-                                    "job_posting_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "cover_letter": {
-                                        "type": "string",
-                                        "example": "I am passionate about backend development and believe I am a perfect fit for this role."
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Job application submitted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Job application submitted successfully"
-                                        },
-                                        "application": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "job_posting_id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "cover_letter": {
-                                                    "type": "string",
-                                                    "example": "I am passionate about backend development and believe I am a perfect fit for this role."
-                                                },
-                                                "created_at": {
-                                                    "type": "string",
-                                                    "format": "date-time",
-                                                    "example": "2025-06-04T12:45:00.000000Z"
-                                                },
-                                                "updated_at": {
-                                                    "type": "string",
-                                                    "format": "date-time",
-                                                    "example": "2025-06-04T12:45:00.000000Z"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Job posting not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Job posting not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The given data was invalid."
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "example": {
-                                                "job_posting_id": [
-                                                    "The job posting id field is required."
-                                                ],
-                                                "cover_letter": [
-                                                    "The cover letter field is required."
-                                                ]
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/user/job-listings": {
-            "get": {
-                "tags": [
-                    "Applicant"
-                ],
-                "summary": "Get all job postings",
-                "operationId": "733fa432aa19c52b8749c490299afe61",
-                "responses": {
-                    "200": {
-                        "description": "Job postings retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Job postings retrieved successfully"
-                                        },
-                                        "data": {
-                                            "properties": {
-                                                "current_page": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "data": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "properties": {
-                                                            "id": {
-                                                                "type": "integer",
-                                                                "example": 1
-                                                            },
-                                                            "title": {
-                                                                "type": "string",
-                                                                "example": "Backend Engineer"
-                                                            },
-                                                            "description": {
-                                                                "type": "string",
-                                                                "example": "Senior Backend Engineer with Laravel and PHP experience"
-                                                            },
-                                                            "location": {
-                                                                "type": "string",
-                                                                "example": "Nairobi"
-                                                            },
-                                                            "job_type": {
-                                                                "type": "string",
-                                                                "example": "full-time"
-                                                            },
-                                                            "salary_min": {
-                                                                "type": "number",
-                                                                "example": 300000
-                                                            },
-                                                            "salary_max": {
-                                                                "type": "number",
-                                                                "example": 400000
-                                                            },
-                                                            "requirements": {
-                                                                "type": "array",
-                                                                "items": {
-                                                                    "type": "string",
-                                                                    "example": "Laravel"
-                                                                }
-                                                            },
-                                                            "benefits": {
-                                                                "type": "string",
-                                                                "nullable": true
-                                                            },
-                                                            "deadline": {
-                                                                "type": "string",
-                                                                "format": "date",
-                                                                "example": "2025-08-01"
-                                                            },
-                                                            "created_at": {
-                                                                "type": "string",
-                                                                "format": "date-time",
-                                                                "example": "2025-06-03T19:23:53.000000Z"
-                                                            },
-                                                            "company": {
-                                                                "properties": {
-                                                                    "id": {
-                                                                        "type": "integer",
-                                                                        "example": 1
-                                                                    },
-                                                                    "name": {
-                                                                        "type": "string",
-                                                                        "example": "Pesa Kittyy"
-                                                                    }
-                                                                },
-                                                                "type": "object"
-                                                            }
-                                                        },
-                                                        "type": "object"
-                                                    }
-                                                },
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "per_page": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
         }
     },
     "components": {
@@ -1481,16 +1483,16 @@
     },
     "tags": [
         {
+            "name": "Applicant",
+            "description": "Applicant"
+        },
+        {
             "name": "Authentication",
             "description": "Authentication"
         },
         {
             "name": "Company",
             "description": "Company"
-        },
-        {
-            "name": "Applicant",
-            "description": "Applicant"
         }
     ]
 }
