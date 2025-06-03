@@ -17,7 +17,14 @@ use Log;
  *     @OA\Contact(
  *         email="support@example.com"
  *     )
+ *
  * )
+     * @OA\SecurityScheme(
+     *     type="http",
+     *     securityScheme="bearerAuth",
+     *     scheme="bearer",
+     *     bearerFormat="JWT",
+     * )
  *
  * @OA\Server(
  *     url=L5_SWAGGER_CONST_HOST,

@@ -15,6 +15,7 @@ class JobPostController extends Controller
     /**
      * @OA\Get(
      *     path="/api/v1/company/job-postings",
+     * security={{"bearerAuth":{}}},
      *     summary="Get paginated job postings for a company",
      *     tags={"Jobs"},
      *     @OA\Response(
@@ -101,6 +102,7 @@ class JobPostController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/company/job-postings",
+     *      security={{"bearerAuth":{}}},
      *     summary="Create a new job posting",
      *     tags={"Jobs"},
      *     @OA\RequestBody(
@@ -164,6 +166,7 @@ class JobPostController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -176,7 +179,10 @@ class JobPostController extends Controller
             'deadline' => 'nullable|date|after:today',
         ]);
 
-        $jobPosting = $request->user()->jobPostings()->create($request->all());
+        Log::info('Creating job posting with data:', $request->all());
+$jobPosting = $request->user()->jobPostings()->create($request->all());
+Log::info('Created job posting ID: ' . optional($jobPosting)->id);
+        // $jobPosting = $request->user()->jobPostings()->create($request->all());
 
         return response()->json([
             'message' => 'Job posting created successfully',

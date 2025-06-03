@@ -19,7 +19,7 @@ class RegisterController extends Controller
 
          /**
      * @OA\Post(
-     *     path="/api/v1/user/register",
+     *     path="/api/v1/auth/user/register",
      *     summary="User endpoint register",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
@@ -97,7 +97,7 @@ class RegisterController extends Controller
 
          /**
      * @OA\Post(
-     *     path="/api/v1/company/register",
+     *     path="/api/v1/auth/company/register",
      *     summary="Company endpoint register",
      *     tags={"Authentication"},
      *     @OA\RequestBody(

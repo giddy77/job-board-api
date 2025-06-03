@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->enum('job_type', ['full-time', 'hybrid','part-time', 'contract', 'remote']);
             $table->json('requirements')->nullable();
             $table->text('benefits')->nullable();
+            $table->date('deadline')->nullable();
             $table->timestamps();
         });
     }

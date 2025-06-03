@@ -263,13 +263,13 @@
                 }
             }
         },
-        "/api/v1/user/register": {
+        "/api/v1/auth/user/register": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "User endpoint register",
-                "operationId": "a9a3a85fa27d0d30f2676e1afa2d3bd2",
+                "operationId": "fa9cc725253c8f08681e3fbb848893cf",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -388,13 +388,13 @@
                 }
             }
         },
-        "/api/v1/company/register": {
+        "/api/v1/auth/company/register": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Company endpoint register",
-                "operationId": "3af561f301e2ae1ef26c2f608d89b31a",
+                "operationId": "80e26a99ba9c70b81521605d433f5528",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -695,7 +695,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -871,7 +876,21 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     },
