@@ -9,9 +9,71 @@ use App\Http\Resources\CompanyResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Log;
+/**
+ * @OA\Info(
+ *     version="1.0.0",
+ *     title="Job Board API",
+ *     description="This is the Job Board API documentation.",
+ *     @OA\Contact(
+ *         email="support@example.com"
+ *     )
+ * )
+ *
+ * @OA\Server(
+ *     url=L5_SWAGGER_CONST_HOST,
+ *     description="API Server"
+ * )
+ */
 
 class LoginController extends Controller
 {
+       /**
+     * @OA\Post(
+     *     path="/api/v1/user/login",
+     *     summary="User endpoint Login",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *             @OA\Property(property="password", type="string", minLength=4, example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User Logged In Successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Login successful"),
+     *             @OA\Property(
+     *                 property="user",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=12),
+     *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 @OA\Property(property="email", type="string", example="john@gmail.com"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z")
+     *             ),
+     *             @OA\Property(property="token", type="string", example="17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"),
+     *             @OA\Property(property="expiration", type="string", format="date-time", example="2025-06-03T16:53:15.894527Z")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation failed or other error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}, "password": {"The password field is required."}})
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="User credentials not valid",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User credentials not valid")
+     *         )
+     *     )
+     * )
+     */
+
     public function loginUser(UserLoginRequest $request)
     {
         $credentials = $request->validated();
@@ -41,6 +103,54 @@ class LoginController extends Controller
         ], 401); // 401 Unauthorized
 
     }
+      /**
+     * @OA\Post(
+     *     path="/api/v1/company/login",
+     *     summary="Company endpoint Login",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="email", type="string", format="email", example="info@pesakit.com"),
+     *             @OA\Property(property="password", type="string", minLength=4, example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Company Logged In Successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Login successful"),
+     *             @OA\Property(
+     *                 property="company",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=12),
+     *                 @OA\Property(property="name", type="string", example="Pesa Kit"),
+     *                 @OA\Property(property="email", type="string", example="info@pesakit.com"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z")
+     *             ),
+     *             @OA\Property(property="token", type="string", example="17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"),
+     *             @OA\Property(property="expiration", type="string", format="date-time", example="2025-06-03T16:53:15.894527Z")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation failed or other error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}, "password": {"The password field is required."}})
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="User credentials not valid",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User credentials not valid")
+     *         )
+     *     )
+     * )
+     */
+
+
 
     public function loginCompany(CompanyLoginRequest $request)
     {
@@ -71,7 +181,7 @@ class LoginController extends Controller
             ], 401); // 401 Unauthorized
 
         } catch (\Throwable $e) {
-            Log::error('Login error: '.$e->getMessage());
+            Log::error('Login error: ' . $e->getMessage());
             return response()->json([
                 'message' => 'An error occurred during login',
             ], 500); // 500 Internal Server Error

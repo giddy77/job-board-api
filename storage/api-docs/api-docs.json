@@ -1,0 +1,529 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Job Board API",
+        "description": "This is the Job Board API documentation.",
+        "contact": {
+            "email": "support@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/v1/user/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User endpoint Login",
+                "operationId": "55bb4e540d08e0f2c7d2bf95cf46e34b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 4,
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User Logged In Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login successful"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@gmail.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"
+                                        },
+                                        "expiration": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-03T16:53:15.894527Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation failed or other error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ],
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User credentials not valid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User credentials not valid"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/company/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Company endpoint Login",
+                "operationId": "dd6d0e1a92353fbe1776b003c2c03a67",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "info@pesakit.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 4,
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Company Logged In Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login successful"
+                                        },
+                                        "company": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Pesa Kit"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "info@pesakit.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"
+                                        },
+                                        "expiration": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-03T16:53:15.894527Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation failed or other error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ],
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User credentials not valid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User credentials not valid"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User endpoint register",
+                "operationId": "a9a3a85fa27d0d30f2676e1afa2d3bd2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 4,
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User registered In Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User Registration successful"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@gmail.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"
+                                        },
+                                        "expiration": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-03T16:53:15.894527Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation failed or other error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": [
+                                                    "The name field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User credentials not valid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User credentials not valid"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/company/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Company endpoint register",
+                "operationId": "3af561f301e2ae1ef26c2f608d89b31a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Pesa Kit"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "info@Pesakit.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 4,
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Company Registerd Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Company Registration successful"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@gmail.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T15:25:20.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"
+                                        },
+                                        "expiration": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-03T16:53:15.894527Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation failed or other error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": [
+                                                    "The name field is required."
+                                                ],
+                                                "email": [
+                                                    "The email field is required."
+                                                ],
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User credentials not valid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Company credentials not valid"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        }
+    ]
+}

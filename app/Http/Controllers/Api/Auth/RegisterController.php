@@ -14,6 +14,55 @@ use Throwable;
 class RegisterController extends Controller
 {
     //user registration logic
+
+         /**
+     * @OA\Post(
+     *     path="/api/v1/user/register",
+     *     summary="User endpoint register",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *            @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *             @OA\Property(property="password", type="string", minLength=4, example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User registered In Successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User Registration successful"),
+     *             @OA\Property(
+     *                 property="user",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=12),
+     *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 @OA\Property(property="email", type="string", example="john@gmail.com"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z")
+     *             ),
+     *             @OA\Property(property="token", type="string", example="17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"),
+     *             @OA\Property(property="expiration", type="string", format="date-time", example="2025-06-03T16:53:15.894527Z")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation failed or other error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="errors", type="object", example={"name": {"The name field is required."}}),
+     *
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="User credentials not valid",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User credentials not valid")
+     *         )
+     *     )
+     * )
+     */
     public function registerUser(UserRegisterRequest $request)
     {
         // Validate the request
@@ -42,6 +91,56 @@ class RegisterController extends Controller
     }
 
     //company registration
+     //user registration logic
+
+         /**
+     * @OA\Post(
+     *     path="/api/v1/company/register",
+     *     summary="Company endpoint register",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *            @OA\Property(property="name", type="string", example="Pesa Kit"),
+     *             @OA\Property(property="email", type="string", format="email", example="info@Pesakit.com"),
+     *             @OA\Property(property="password", type="string", minLength=4, example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Company Registerd Successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Company Registration successful"),
+     *             @OA\Property(
+     *                 property="user",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=12),
+     *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 @OA\Property(property="email", type="string", example="john@gmail.com"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-03T15:25:20.000000Z")
+     *             ),
+     *             @OA\Property(property="token", type="string", example="17|jb-apijXzKaqj41CsgjJaceu9DV5xlHqbrlCgyW9n4v7ra61157a98"),
+     *             @OA\Property(property="expiration", type="string", format="date-time", example="2025-06-03T16:53:15.894527Z")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation failed or other error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="errors", type="object", example={"name": {"The name field is required."}, "email": {"The  email is required."}, "password": {"The password field is required."}, "email": {"The email field is required."}}),
+     *
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="User credentials not valid",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Company credentials not valid")
+     *         )
+     *     )
+     * )
+     */
     public function registerCompany(CompanyRegisterRequest $request)
     {
         try {
