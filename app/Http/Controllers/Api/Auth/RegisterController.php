@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UserRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -20,6 +21,12 @@ class RegisterController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
+        ]);
+           //Log the successful registration attempt for user tracking
+           Log::channel('auth')->info('User registered successfully', [
+            'email' => $user->email,
+            'registered_at' => now(),
+            'ip_address' => $request->ip(),
         ]);
 
         // Return a response
