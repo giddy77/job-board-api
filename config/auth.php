@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Company;
+
 return [
 
     /*
@@ -40,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'company' => [
+        'driver' => 'session', // or 'sanctum'
+        'provider' => 'companies',
+    ],
     ],
 
     /*
@@ -62,13 +68,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', Company::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'companies' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_COMPANY_MODEL', Company::class),
+        ],
     ],
 
     /*
