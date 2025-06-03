@@ -77,8 +77,6 @@ The documentation includes:
 - Search and filtering
 - Role-based access control
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
 
 ## License
 
