@@ -12,17 +12,20 @@ class JobPostResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request)
     {
         return [
-            'id'           => $this->id,
-            'title'        => $this->title,
-            'description'  => $this->description,
-            'location'     => $this->location,
-            'type'         => $this->type,
-            'published_at' => $this->published_at,
-            'created_at'   => $this->created_at,
-            'updated_at'   => $this->updated_at,
+            'title' => $this->title,
+            'description' => $this->description,
+            'location' => $this->location,
+            'salary_min' => number_format($this->salary_min, 2, '.', ''),
+            'salary_max' => number_format($this->salary_max, 2, '.', ''),
+            'requirements' => $this->requirements,
+            'company_id' => $this->company_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'id' => $this->id,
+            'company' => new CompanyResource($this->whenLoaded('company')), //only fetch when loaded
         ];
     }
 }

@@ -12,6 +12,76 @@ class JobPostController extends Controller
     // SOLUTION 1: Remove the constructor and handle auth in routes
     // Remove the __construct method entirely and add middleware to routes
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/company/job-postings",
+     *     summary="Get paginated job postings for a company",
+     *     tags={"Jobs"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Job postings retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Job postings retrieved successfully"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="current_page", type="integer", example=1),
+     *                 @OA\Property(
+     *                     property="data",
+     *                     type="array",
+     *                     @OA\Items(
+     *                         type="object",
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="company_id", type="integer", example=1),
+     *                         @OA\Property(property="title", type="string", example="Backend Engineer"),
+     *                         @OA\Property(property="description", type="string", example="Senior Backend Engineer with 5+ years experience in Laravel, PHP, and API development"),
+     *                         @OA\Property(property="location", type="string", example="Nairobi"),
+     *                         @OA\Property(property="salary_min", type="string", example="300000.00"),
+     *                         @OA\Property(property="salary_max", type="string", example="400000.00"),
+     *                         @OA\Property(property="job_type", type="string", example="full-time"),
+     *                         @OA\Property(
+     *                             property="requirements",
+     *                             type="array",
+     *                             @OA\Items(type="string"),
+     *                             example={"Laravel", "PHP", "MySQL", "API Development"}
+     *                         ),
+     *                         @OA\Property(property="benefits", type="string", nullable=true, example=null),
+     *                         @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-03T19:23:53.000000Z"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-03T19:23:53.000000Z"),
+     *                         @OA\Property(
+     *                             property="company",
+     *                             type="object",
+     *                             @OA\Property(property="id", type="integer", example=1),
+     *                             @OA\Property(property="name", type="string", example="Pesa Kittyy")
+     *                         )
+     *                     )
+     *                 ),
+     *                 @OA\Property(property="first_page_url", type="string", example="http://localhost:8000/api/v1/company/job-postings?page=1"),
+     *                 @OA\Property(property="from", type="integer", example=1),
+     *                 @OA\Property(property="last_page", type="integer", example=1),
+     *                 @OA\Property(property="last_page_url", type="string", example="http://localhost:8000/api/v1/company/job-postings?page=1"),
+     *                 @OA\Property(
+     *                     property="links",
+     *                     type="array",
+     *                     @OA\Items(
+     *                         type="object",
+     *                         @OA\Property(property="url", type="string", nullable=true, example=null),
+     *                         @OA\Property(property="label", type="string", example="« Previous"),
+     *                         @OA\Property(property="active", type="boolean", example=false)
+     *                     )
+     *                 ),
+     *                 @OA\Property(property="next_page_url", type="string", nullable=true, example=null),
+     *                 @OA\Property(property="path", type="string", example="http://localhost:8000/api/v1/company/job-postings"),
+     *                 @OA\Property(property="per_page", type="integer", example=10),
+     *                 @OA\Property(property="prev_page_url", type="string", nullable=true, example=null),
+     *                 @OA\Property(property="to", type="integer", example=1),
+     *                 @OA\Property(property="total", type="integer", example=1)
+     *             )
+     *         )
+     *     )
+     * )
+     */
+
     public function index(Request $request)
     {
         $jobPostings = $request->user()->jobPostings()
@@ -25,13 +95,75 @@ class JobPostController extends Controller
         ]);
     }
 
+
+
+
+    /**
+     * @OA\Post(
+     *     path="/api/v1/company/job-postings",
+     *     summary="Create a new job posting",
+     *     tags={"Jobs"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"title", "description", "location", "type", "salary_min", "salary_max", "requirements", "deadline"},
+     *             @OA\Property(property="title", type="string", example="Backend Engineer"),
+     *             @OA\Property(property="description", type="string", example="Senior Backend Engineer with 5+ years experience in Laravel, PHP, and API development"),
+     *             @OA\Property(property="location", type="string", example="Nairobi"),
+     *             @OA\Property(property="type", type="string", example="full-time"),
+     *             @OA\Property(property="salary_min", type="number", format="float", example=300000),
+     *             @OA\Property(property="salary_max", type="number", format="float", example=400000),
+     *             @OA\Property(
+     *                 property="requirements",
+     *                 type="array",
+     *                 @OA\Items(type="string"),
+     *                 example={"Laravel", "PHP", "MySQL", "API Development"}
+     *             ),
+     *             @OA\Property(property="deadline", type="string", format="date", example="2025-08-01")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Job created successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Job created successfully"),
+     *             @OA\Property(
+     *                 property="job",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="title", type="string", example="Backend Engineer"),
+     *                 @OA\Property(property="description", type="string", example="Senior Backend Engineer with 5+ years experience in Laravel, PHP, and API development"),
+     *                 @OA\Property(property="location", type="string", example="Nairobi"),
+     *                 @OA\Property(property="type", type="string", example="full-time"),
+     *                 @OA\Property(property="salary_min", type="number", format="float", example=300000),
+     *                 @OA\Property(property="salary_max", type="number", format="float", example=400000),
+     *                 @OA\Property(
+     *                     property="requirements",
+     *                     type="array",
+     *                     @OA\Items(type="string"),
+     *                     example={"Laravel", "PHP", "MySQL", "API Development"}
+     *                 ),
+     *                 @OA\Property(property="deadline", type="string", format="date", example="2025-08-01"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-03T20:00:00.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-03T20:00:00.000000Z")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation failed",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *             @OA\Property(property="errors", type="object", example={"title": {"The title field is required."}})
+     *         )
+     *     )
+     * )
+     */
+
+
+
     public function store(Request $request)
     {
-        Log::info('JobPost store called', [
-            'user_id' => $request->user()->id,
-            'request_data' => $request->all()
-        ]);
-
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',

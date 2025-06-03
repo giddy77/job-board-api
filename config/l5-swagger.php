@@ -55,6 +55,10 @@ return [
              * Route for accessing parsed swagger annotations.
              */
             'docs' => 'docs',
+            /**
+             * Headers
+             */
+            'headers' => [],
 
             /*
              * Route for Oauth2 authentication callback.

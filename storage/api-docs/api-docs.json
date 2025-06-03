@@ -10,18 +10,18 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://localhost:8000",
             "description": "API Server"
         }
     ],
     "paths": {
-        "/api/v1/user/login": {
+        "/api/v1/auth/user/login": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "User endpoint Login",
-                "operationId": "55bb4e540d08e0f2c7d2bf95cf46e34b",
+                "operationId": "f094e3c021bf7026a692e12d1ec00ef6",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -139,13 +139,13 @@
                 }
             }
         },
-        "/api/v1/company/login": {
+        "/api/v1/auth/company/login": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Company endpoint Login",
-                "operationId": "dd6d0e1a92353fbe1776b003c2c03a67",
+                "operationId": "2f95b67ba7a5479ebe86a81451156b0b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -518,12 +518,371 @@
                     }
                 }
             }
+        },
+        "/api/v1/company/job-postings": {
+            "get": {
+                "tags": [
+                    "Jobs"
+                ],
+                "summary": "Get paginated job postings for a company",
+                "operationId": "91563a6b33a158ae6eadbef17126bd89",
+                "responses": {
+                    "200": {
+                        "description": "Job postings retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job postings retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "company_id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Backend Engineer"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "Senior Backend Engineer with 5+ years experience in Laravel, PHP, and API development"
+                                                            },
+                                                            "location": {
+                                                                "type": "string",
+                                                                "example": "Nairobi"
+                                                            },
+                                                            "salary_min": {
+                                                                "type": "string",
+                                                                "example": "300000.00"
+                                                            },
+                                                            "salary_max": {
+                                                                "type": "string",
+                                                                "example": "400000.00"
+                                                            },
+                                                            "job_type": {
+                                                                "type": "string",
+                                                                "example": "full-time"
+                                                            },
+                                                            "requirements": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                },
+                                                                "example": [
+                                                                    "Laravel",
+                                                                    "PHP",
+                                                                    "MySQL",
+                                                                    "API Development"
+                                                                ]
+                                                            },
+                                                            "benefits": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-06-03T19:23:53.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-06-03T19:23:53.000000Z"
+                                                            },
+                                                            "company": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Pesa Kittyy"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/v1/company/job-postings?page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/v1/company/job-postings?page=1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "« Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": false
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/v1/company/job-postings"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Jobs"
+                ],
+                "summary": "Create a new job posting",
+                "operationId": "a450d876f755a5dcce592e4fb14dcce1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "location",
+                                    "type",
+                                    "salary_min",
+                                    "salary_max",
+                                    "requirements",
+                                    "deadline"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Backend Engineer"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Senior Backend Engineer with 5+ years experience in Laravel, PHP, and API development"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "Nairobi"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "full-time"
+                                    },
+                                    "salary_min": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 300000
+                                    },
+                                    "salary_max": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 400000
+                                    },
+                                    "requirements": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "Laravel",
+                                            "PHP",
+                                            "MySQL",
+                                            "API Development"
+                                        ]
+                                    },
+                                    "deadline": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-08-01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Job created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job created successfully"
+                                        },
+                                        "job": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Backend Engineer"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Senior Backend Engineer with 5+ years experience in Laravel, PHP, and API development"
+                                                },
+                                                "location": {
+                                                    "type": "string",
+                                                    "example": "Nairobi"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "full-time"
+                                                },
+                                                "salary_min": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 300000
+                                                },
+                                                "salary_max": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 400000
+                                                },
+                                                "requirements": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "Laravel",
+                                                        "PHP",
+                                                        "MySQL",
+                                                        "API Development"
+                                                    ]
+                                                },
+                                                "deadline": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-08-01"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T20:00:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-03T20:00:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "title": [
+                                                    "The title field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
         {
             "name": "Authentication",
             "description": "Authentication"
+        },
+        {
+            "name": "Jobs",
+            "description": "Jobs"
         }
     ]
 }

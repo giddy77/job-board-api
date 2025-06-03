@@ -29,7 +29,7 @@ class LoginController extends Controller
 {
        /**
      * @OA\Post(
-     *     path="/api/v1/user/login",
+     *     path="/api/v1/auth/user/login",
      *     summary="User endpoint Login",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
@@ -106,7 +106,7 @@ class LoginController extends Controller
     }
       /**
      * @OA\Post(
-     *     path="/api/v1/company/login",
+     *     path="/api/v1/auth/company/login",
      *     summary="Company endpoint Login",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
