@@ -11,8 +11,10 @@
 This is a job app api
 
 
+## Source Code
+- https://github.com/giddy77/job-board-api
 ## API Documentation
-- https://appdomain/api/v1/documentation
+- https://appdomain/api/documentation
 
 ## APP OVERVIEW
 
@@ -61,7 +63,7 @@ Your API will be available at `http://localhost:8000`
 
 Access the interactive API documentation at:
 ```
-http://localhost:8000/api/v1/documentation
+http://localhost:8000/api/documentation
 ```
 
 The documentation includes:
