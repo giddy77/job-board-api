@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->decimal('salary_min', 10, 2);
             $table->decimal('salary_max', 10, 2);
             $table->enum('job_type', ['full-time', 'hybrid','part-time', 'contract', 'remote']);
+            $table->text('requirements')->nullable();
+            $table->text('benefits')->nullable();
             $table->timestamps();
         });
     }

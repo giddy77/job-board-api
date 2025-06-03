@@ -22,7 +22,7 @@ class Company extends Authenticatable
         'company_website',
     ];
 
-    public function jobs()
+    public function jobsPostings()
     {
         return $this->hasMany(JobPosting::class);
     }
