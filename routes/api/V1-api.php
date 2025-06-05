@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\Company\JobPostController;
-use App\Http\Controllers\Applicant\ApplicationController;
-use App\Http\Controllers\Applicant\JobListController;
+use App\Http\Controllers\Api\Applicant\ApplicationController;
+use App\Http\Controllers\Api\Applicant\JobListController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\LoginController;

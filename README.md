@@ -22,7 +22,7 @@ This is a job app api
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/job-board-api.git
+git clone https://github.com/gidy77/job-board-api.git
 cd job-board-api
 ```
 
